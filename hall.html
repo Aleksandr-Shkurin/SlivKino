@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сливкино - Выбор мест</title>
+<script src="js/data-loader.js"></script>
+<script src="js/movies-data.js"></script>
+<script src="js/hall.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hall.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <a href="index.html" class="logo" style="text-decoration: none;">Сливкино</a>
+            <nav class="sub-nav">
+                <a href="index.html">Афиша</a>
+                <a href="cinemas.html">Кинотеатры</a>
+            </nav>
+        </header>
+
+        <div id="hall-container" class="hall-container">
+            <div class="loading">Загрузка...</div>
+        </div>
+    </div>
+
+    <!-- Сначала загружаем данные -->
+    <script src="js/movies-data.js"></script>
+    <!-- Потом логику зала -->
+    <script src="js/hall.js"></script>
+</body>
+</html>

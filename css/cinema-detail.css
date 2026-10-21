@@ -1,0 +1,243 @@
+.cinema-detail-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 25px;
+    color: #3A4DB3;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+.cinema-detail-card {
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cinema-detail-header {
+    background: linear-gradient(135deg, #280595 0%, #3A4DB3 100%);
+    padding: 40px;
+    color: white;
+}
+
+.cinema-detail-name {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.cinema-detail-address {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.cinema-detail-content {
+    padding: 40px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.info-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+    .info-card h3 {
+        font-size: 18px;
+        color: #280595;
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+
+    .info-card p {
+        color: #555;
+        line-height: 1.6;
+        margin: 8px 0;
+    }
+
+    .info-card .phone {
+        font-size: 20px;
+        font-weight: 700;
+        color: #3A4DB3;
+    }
+
+.features-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.feature-tag {
+    background: #e8eaf6;
+    padding: 6px 14px;
+    border-radius: 25px;
+    font-size: 13px;
+    color: #280595;
+}
+
+.description-section {
+    margin-bottom: 40px;
+}
+
+    .description-section h3 {
+        font-size: 22px;
+        color: #280595;
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+
+    .description-section p {
+        color: #555;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+.movies-section h3 {
+    font-size: 22px;
+    color: #280595;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.movies-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.movie-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+    
+.movie-item-info {
+    flex: 1;
+}
+
+.movie-item-title {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #280595;
+}
+
+.movie-item-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.movie-item-genre {
+    font-size: 12px;
+    color: #666;
+    background: white;
+    padding: 2px 8px;
+    border-radius: 15px;
+    border: 1px solid #3A4DB3;
+}
+
+.movie-item-sessions {
+    text-align: right;
+}
+
+.session-times {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.session-time-badge {
+    background: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #3A4DB3;
+    border: 1px solid #3A4DB3;
+}
+
+.no-movies {
+    text-align: center;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    color: #999;
+}
+
+.loading {
+    text-align: center;
+    padding: 60px;
+    font-size: 18px;
+    color: #999;
+}
+
+.not-found {
+    text-align: center;
+    padding: 60px;
+    background: white;
+    border-radius: 12px;
+}
+
+    .not-found h2 {
+        color: #ff4757;
+        margin-bottom: 15px;
+    }
+
+@media (max-width: 768px) {
+    .cinema-detail-header {
+        padding: 25px;
+    }
+
+    .cinema-detail-name {
+        font-size: 24px;
+    }
+
+    .cinema-detail-content {
+        padding: 20px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .movie-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .movie-item-sessions {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .session-times {
+        justify-content: center;
+    }
+}

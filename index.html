@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<!-- Сначала загружаем загрузчик данных -->
+<script src="js/data-loader.js"></script>
+<!-- Потом остальные скрипты -->
+<script src="js/movies-data.js"></script>
+<script src="js/cinemas-data.js"></script>
+<!-- остальные скрипты -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сливкино - Афиша кино</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <a href="index.html" class="logo" style="text-decoration: none;">Сливкино</a>
+            <nav class="sub-nav">
+                <a href="index.html" class="active">Афиша</a>
+                <a href="cinemas.html">Кинотеатры</a>
+            </nav>
+        </header>
+
+        <div class="search-filter-section">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Поиск по названию...">
+            </div>
+            <div class="genre-filter">
+                <select id="genre-select">
+                    <option value="all">Все жанры</option>
+                    <option value="триллер">Триллер</option>
+                    <option value="детектив">Детектив</option>
+                    <option value="драма">Драма</option>
+                    <option value="комедия">Комедия</option>
+                    <option value="приключения">Приключения</option>
+                    <option value="мультфильм">Мультфильм</option>
+                    <option value="семейный">Семейный</option>
+                    <option value="фантастика">Фантастика</option>
+                </select>
+            </div>
+        </div>
+
+        <section class="now-playing">
+            <h2 class="section-title">В прокате</h2>
+            <div id="now-playing-container" class="movies-grid"></div>
+        </section>
+
+        <section class="coming-soon">
+            <h2 class="section-title">Скоро в прокате</h2>
+            <div id="coming-soon-container" class="movies-grid"></div>
+        </section>
+    </div>
+
+    <button id="scroll-to-soon" class="scroll-btn">
+        <span class="scroll-btn-text">К скоро в прокате</span>
+        <span class="scroll-btn-icon">↓</span>
+    </button>
+
+    <script src="js/movies-data.js"></script>
+    <script>
+        (function () {
+            // Функция для форматирования даты
+            function formatDate(date) {
+                var day = String(date.getDate()).padStart(2, '0');
+                var month = String(date.getMonth() + 1).padStart(2, '0');
+                var year = date.getFullYear();
+                return day + '.' + month + '.' + year;
+            }
+
+            // Функция отображения фильмов
+            function displayMovies(movies, containerId) {
+                var container = document.getElementById(containerId);
+                if (!container) {
+                    console.error('Контейнер не найден:', containerId);
+                    return;
+                }
+
+                if (!movies || movies.length === 0) {
+                    container.innerHTML = '<div class="no-movies">Нет фильмов для отображения</div>';
+                    return;
+                }
+
+                var today = new Date();
+                var todayStr = formatDate(today);
+                var html = '';
+
+                for (var i = 0; i < movies.length; i++) {
+                    var movie = movies[i];
+
+                    // Создаем теги жанров
+                    var genreTags = '';
+                    for (var g = 0; g < movie.genres.length; g++) {
+                        genreTags += '<span class="genre-tag">' + movie.genres[g] + '</span>';
+                    }
+
+                    // Проверяем последний день
+                    var lastDayBadge = '';
+                    if (movie.endDate === todayStr) {
+                        lastDayBadge = '<span class="last-day-badge">Последний день</span>';
+                    }
+
+                    // Постер
+                    var posterHtml = '';
+                    if (movie.poster && movie.poster !== '') {
+                        posterHtml = '<img src="' + movie.poster + '" alt="' + movie.title + '" onerror="this.onerror=null; this.parentElement.innerHTML=\'<div class=\\"poster-placeholder\\">\'';
+                    } else {
+                        posterHtml = '<div class="poster-placeholder"></div>';
+                    }
+
+                    html += '<a href="movie.html?id=' + movie.id + '" class="movie-card">' +
+                        '<div class="movie-poster">' +
+                        posterHtml +
+                        lastDayBadge +
+                        '</div>' +
+                        '<div class="movie-info">' +
+                        '<h3 class="movie-title">' + movie.title + '</h3>' +
+                        '<div class="movie-meta">' + genreTags + '</div>' +
+                        '</div>' +
+                        '</a>';
+                }
+
+                container.innerHTML = html;
+            }
+
+            // Функция обновления всех секций
+            function updateAllSections() {
+                console.log('Обновление секций...');
+                console.log('moviesDatabase:', window.moviesDatabase);
+
+                if (window.moviesDatabase && window.moviesDatabase.nowPlaying) {
+                    displayMovies(window.moviesDatabase.nowPlaying, 'now-playing-container');
+                    displayMovies(window.moviesDatabase.comingSoon, 'coming-soon-container');
+                } else {
+                    console.error('moviesDatabase не загружен');
+                    var nowContainer = document.getElementById('now-playing-container');
+                    var soonContainer = document.getElementById('coming-soon-container');
+                    if (nowContainer) nowContainer.innerHTML = '<div class="no-movies">Ошибка загрузки данных</div>';
+                    if (soonContainer) soonContainer.innerHTML = '<div class="no-movies">Ошибка загрузки данных</div>';
+                }
+            }
+
+            // Функция поиска и фильтрации
+            function filterMovies() {
+                if (!window.moviesDatabase) return;
+
+                var searchText = document.getElementById('search-input').value.toLowerCase();
+                var selectedGenre = document.getElementById('genre-select').value;
+
+                var allMovies = window.moviesDatabase.nowPlaying.concat(window.moviesDatabase.comingSoon);
+
+                if (selectedGenre !== 'all') {
+                    var filteredByGenre = [];
+                    for (var i = 0; i < allMovies.length; i++) {
+                        var movie = allMovies[i];
+                        var hasGenre = false;
+                        for (var g = 0; g < movie.genres.length; g++) {
+                            if (movie.genres[g].toLowerCase() === selectedGenre.toLowerCase()) {
+                                hasGenre = true;
+                                break;
+                            }
+                        }
+                        if (hasGenre) {
+                            filteredByGenre.push(movie);
+                        }
+                    }
+                    allMovies = filteredByGenre;
+                }
+
+                if (searchText) {
+                    var filteredBySearch = [];
+                    for (var i = 0; i < allMovies.length; i++) {
+                        var movie = allMovies[i];
+                        if (movie.title.toLowerCase().indexOf(searchText) !== -1 ||
+                            (movie.titleEn && movie.titleEn.toLowerCase().indexOf(searchText) !== -1)) {
+                            filteredBySearch.push(movie);
+                        }
+                    }
+                    allMovies = filteredBySearch;
+                }
+
+                var nowPlaying = [];
+                var comingSoon = [];
+
+                for (var i = 0; i < allMovies.length; i++) {
+                    var movie = allMovies[i];
+                    var isNowPlaying = false;
+                    for (var n = 0; n < window.moviesDatabase.nowPlaying.length; n++) {
+                        if (window.moviesDatabase.nowPlaying[n].id === movie.id) {
+                            isNowPlaying = true;
+                            break;
+                        }
+                    }
+                    if (isNowPlaying) {
+                        nowPlaying.push(movie);
+                    } else {
+                        comingSoon.push(movie);
+                    }
+                }
+
+                displayMovies(nowPlaying, 'now-playing-container');
+                displayMovies(comingSoon, 'coming-soon-container');
+            }
+
+            // Плавная прокрутка
+            function setupScrollButton() {
+                var scrollBtn = document.getElementById('scroll-to-soon');
+                var comingSoonSection = document.querySelector('.coming-soon');
+                if (scrollBtn && comingSoonSection) {
+                    scrollBtn.addEventListener('click', function () {
+                        comingSoonSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                    scrollBtn.classList.add('show');
+                }
+            }
+
+            // Загрузка страницы
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('DOM загружен');
+
+                // Ждем загрузки movies-data.js
+                setTimeout(function () {
+                    updateAllSections();
+                }, 100);
+
+                var searchInput = document.getElementById('search-input');
+                var genreSelect = document.getElementById('genre-select');
+
+                if (searchInput) searchInput.addEventListener('input', filterMovies);
+                if (genreSelect) genreSelect.addEventListener('change', filterMovies);
+
+                setupScrollButton();
+            });
+        })();
+    </script>
+</body>
+</html>
