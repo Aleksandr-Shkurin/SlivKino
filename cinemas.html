@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сливкино - Кинотеатры</title>
+<script src="js/data-loader.js"></script>
+<script src="js/movies-data.js"></script>
+<script src="js/cinemas-data.js"></script>
+<script>
+    // код страницы
+</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cinemas.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <a href="index.html" class="logo" style="text-decoration: none;">Сливкино</a>
+            <nav class="sub-nav">
+                <a href="index.html">Афиша</a>
+                <a href="cinemas.html" class="active">Кинотеатры</a>
+            </nav>
+        </header>
+
+        <div class="cinemas-header">
+            <h2 class="section-title">Наши кинотеатры</h2>
+            <p class="cinemas-subtitle">Выберите удобный кинотеатр для просмотра</p>
+        </div>
+
+        <div id="cinemas-list" class="cinemas-grid"></div>
+    </div>
+
+    <script src="js/movies-data.js"></script>
+    <script src="js/cinemas-data.js"></script>
+    <script>
+        function displayCinemasList() {
+            const container = document.getElementById('cinemas-list');
+            if (!container) return;
+
+            if (typeof cinemasDatabase === 'undefined' || !cinemasDatabase || cinemasDatabase.length === 0) {
+                container.innerHTML = '<div class="no-movies">Кинотеатры не найдены</div>';
+                return;
+            }
+
+            container.innerHTML = cinemasDatabase.map(function (cinema) {
+                var featuresHtml = '';
+                for (var i = 0; i < Math.min(3, cinema.features.length); i++) {
+                    featuresHtml += '<span class="feature-tag">' + cinema.features[i] + '</span>';
+                }
+                if (cinema.features.length > 3) {
+                    featuresHtml += '<span class="feature-tag">+' + (cinema.features.length - 3) + '</span>';
+                }
+
+                return `
+                        <a href="cinema-detail.html?id=${cinema.id}" class="cinema-card">
+                            <div class="cinema-preview">
+                                <div class="cinema-preview-placeholder">🎬</div>
+                            </div>
+                            <div class="cinema-info">
+                                <h3 class="cinema-name">${cinema.name}</h3>
+                                <div class="cinema-address">${cinema.address}</div>
+                                <div class="cinema-features">
+                                    ${featuresHtml}
+                                </div>
+                                <div class="cinema-hours">${cinema.workingHours}</div>
+                            </div>
+                        </a>
+                    `;
+            }).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            displayCinemasList();
+        });
+    </script>
+</body>
+</html>

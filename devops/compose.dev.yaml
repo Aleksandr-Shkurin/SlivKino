@@ -1,0 +1,29 @@
+name: slivkino-dev
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
+    command: npm run dev
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: "3000"
+      DB_PATH: /data/slivkino.sqlite
+    volumes:
+      - type: bind
+        source: ..
+        target: /app
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
+      - type: volume
+        source: slivkino_dev_data
+        target: /data
+    init: true
+
+volumes:
+  node_modules:
+  slivkino_dev_data:

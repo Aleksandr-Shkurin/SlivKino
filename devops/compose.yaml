@@ -1,0 +1,20 @@
+name: slivkino
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DB_PATH: /data/slivkino.sqlite
+    volumes:
+      - slivkino_data:/data
+    restart: unless-stopped
+    init: true
+
+volumes:
+  slivkino_data:

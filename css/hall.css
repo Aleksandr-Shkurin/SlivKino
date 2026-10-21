@@ -1,0 +1,241 @@
+﻿.hall-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #3A4DB3;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+.session-info {
+    background: linear-gradient(135deg, #280595 0%, #3A4DB3 100%);
+    color: white;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+    .session-info h2 {
+        margin: 0 0 10px 0;
+        font-size: 24px;
+    }
+
+.session-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+    .session-details span {
+        display: inline-block;
+    }
+
+.screen {
+    text-align: center;
+    margin: 30px 0 20px;
+}
+
+.screen-line {
+    width: 80%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #3A4DB3, #280595, #3A4DB3, transparent);
+    margin: 0 auto;
+    border-radius: 4px;
+}
+
+.screen-label {
+    display: block;
+    margin-top: 10px;
+    color: #666;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.seats-container {
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+.seats-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.seat-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8eaf6;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+    .seat:hover:not(.disabled-seat):not(.selected) {
+        background: #c5cae9;
+        transform: scale(1.05);
+    }
+
+    .seat.vip {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #280595;
+        font-weight: bold;
+    }
+
+    .seat.disabled-seat {
+        background: #f44336;
+        color: white;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    .seat.selected {
+        background: #4caf50;
+        color: white;
+        border-color: #2e7d32;
+    }
+
+    .seat.wheelchair {
+        background: #2196f3;
+        color: white;
+    }
+
+.seat-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    flex-wrap: wrap;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.info-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+}
+
+    .info-dot.available {
+        background: #e8eaf6;
+        border: 1px solid #c5cae9;
+    }
+
+    .info-dot.vip {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+    }
+
+    .info-dot.selected {
+        background: #4caf50;
+    }
+
+    .info-dot.disabled {
+        background: #f44336;
+    }
+
+    .info-dot.wheelchair {
+        background: #2196f3;
+    }
+
+.selection-summary {
+    position: sticky;
+    bottom: 20px;
+    background: white;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border: 2px solid #3A4DB3;
+}
+
+.selected-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.selected-seats {
+    font-weight: 500;
+    color: #280595;
+}
+
+.total-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #3A4DB3;
+}
+
+.buy-btn {
+    background: linear-gradient(135deg, #3A4DB3 0%, #280595 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .buy-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(58, 77, 179, 0.4);
+    }
+
+    .buy-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+@media (max-width: 768px) {
+    .seat {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .seat-row {
+        gap: 4px;
+    }
+
+    .selection-summary {
+        flex-direction: column;
+        text-align: center;
+    }
+}
