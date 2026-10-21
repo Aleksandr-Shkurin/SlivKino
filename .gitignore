@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Local SQLite database and its WAL/SHM sidecar files
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+
+# Local data and secrets
+.env
+.env.*
+!.env.example
+data/
+
+# Logs and OS/editor files
+npm-debug.log*
+.DS_Store
+.vscode/
+.idea/

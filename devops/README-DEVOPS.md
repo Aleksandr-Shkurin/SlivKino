@@ -58,3 +58,20 @@ docker compose -f devops/compose.dev.yaml up --build
 ```
 
 Изменения зависимостей стоит коммитить вместе с `package-lock.json`, когда lock-файл будет сгенерирован. Не удаляйте все volumes только ради обновления зависимостей: в dev-volume также хранится SQLite-база.
+
+## Быстрый локальный запуск для разработки
+
+**Windows:** дважды щёлкните `start-dev.bat` для запуска, `stop-dev.bat` для остановки и `logs-dev.bat` для просмотра логов.
+
+**macOS/Linux:** из корня репозитория выполните `./devops/start-dev.sh`, `./devops/stop-dev.sh` или `./devops/logs-dev.sh`.
+
+Dev-режим подключает исходный код с компьютера в контейнер. После сохранения HTML/CSS/JS обычно достаточно обновить страницу браузера (при проблемах с кэшем используйте Ctrl+F5). `server.js` запускается с `node --watch` и должен перезапускаться при изменении. Пересборка не требуется после каждого изменения исходников.
+
+Если изменился `package.json` (например, добавили библиотеку), зависимости нужно обновить в dev-контейнере:
+
+```bash
+docker compose -f devops/compose.dev.yaml run --rm app npm install
+docker compose -f devops/compose.dev.yaml up --build -d
+```
+
+Затем зафиксируйте вместе `package.json` и `package-lock.json` в Git. Не используйте `docker compose down -v`, если требуется сохранить локальную dev-базу.
