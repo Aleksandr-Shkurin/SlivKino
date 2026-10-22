@@ -15,7 +15,11 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.static(__dirname));
 
 function loadInitialState() {
-  const context = {};
+  // Эти файлы используются и браузером, и сервером для начальных данных.
+  // При серверной загрузке отключаем браузерную синхронизацию через fetch('/api/state').
+  const context = {
+    fetch: () => Promise.resolve({ ok: false })
+  };
   const movieFile = fs.readFileSync(path.join(__dirname, 'js/movies-data.js'), 'utf8');
   const cinemaFile = fs.readFileSync(path.join(__dirname, 'js/cinemas-data.js'), 'utf8');
   vm.runInNewContext(movieFile, context);

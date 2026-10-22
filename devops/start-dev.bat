@@ -2,7 +2,7 @@
 setlocal
 cd /d "%~dp0.."
 echo Starting SlivKino development environment...
-docker compose -f devops/compose.dev.yaml up --build -d
+docker compose -f devops/compose.dev.yaml up -d
 if errorlevel 1 (
   echo.
   echo Failed to start. Make sure Docker Desktop is running.
