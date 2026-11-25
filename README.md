@@ -1,56 +1,59 @@
-# SlivKino
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Локальный сайт на Node.js + Express + SQLite.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Быстрый запуск для разработки (Docker)
+## About Laravel
 
-Требуются Git и Docker с Docker Compose v2.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-Из корня проекта выполните:
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-```bash
-docker compose -f devops/compose.dev.yaml up --build
-```
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-Откройте <http://localhost:3000/>. Админ-панель: <http://localhost:3000/admin.html>.
+## Learning Laravel
 
-В dev-режиме исходники подключены с диска: изменения HTML/CSS/браузерного JavaScript доступны без пересборки, а изменение `server.js` перезапускает Node.js. Данные SQLite сохраняются в отдельном Docker volume для разработки.
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
 
-Остановить: `Ctrl+C`, затем:
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-```bash
-docker compose -f devops/compose.dev.yaml down
-```
+## Laravel Sponsors
 
-## Запуск без Docker
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-Нужен Node.js 22 или совместимая версия с поддержкой `node --watch`.
+### Premium Partners
 
-```bash
-npm install
-npm run dev
-```
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-Для обычного запуска без автоматического перезапуска сервера: `npm start`.
+## Contributing
 
-## Запуск в production-like режиме
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-Этот конфиг не монтирует исходники с хоста, а собирает их в образ:
+## Code of Conduct
 
-```bash
-docker compose -f devops/compose.yaml up -d --build
-```
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-Откройте <http://localhost:3000/>. Логи: `docker compose -f devops/compose.yaml logs -f app`. Остановить: `docker compose -f devops/compose.yaml down`.
+## Security Vulnerabilities
 
-Dev и production-like конфиги используют разные SQLite volumes. Порт опубликован только на `127.0.0.1` и не предназначен для доступа из локальной сети.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## Документация
+## License
 
-- [DevOps и Docker](devops/README-DEVOPS.md)
-- [SQLite и админ-панель](devops/README-DB.md)
-- [Правила совместной разработки](CONTRIBUTING.md)
-
-## Безопасность
-
-Текущая админ-панель не имеет полноценной авторизации. Не публикуйте этот проект в интернет до добавления входа, проверки прав доступа и резервного копирования базы.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

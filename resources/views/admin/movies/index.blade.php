@@ -1,0 +1,6 @@
+@extends('admin.layout')
+@section('title','Фильмы')@section('section-title','Фильмы')
+@section('content')<div class="page-head"><div><h1>Фильмы</h1><p>Добавление, изменение карточек и привязка жанров.</p></div><a class="btn" href="{{ route('admin.movies.create') }}">＋ Добавить фильм</a></div>
+<div class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Фильм</th><th>Год</th><th>Жанры</th><th>Сеансы</th><th>Статус</th><th>Действия</th></tr></thead><tbody>
+@forelse($movies as $movie)<tr><td><strong>{{ $movie->title }}</strong><br><span class="muted">{{ $movie->title_en }}</span></td><td>{{ $movie->year ?? '—' }}</td><td>{{ $movie->genres->pluck('name')->implode(', ') ?: '—' }}</td><td>{{ $movie->sessions_count }}</td><td><span class="pill">{{ $movie->coming_soon ? 'Скоро' : 'В прокате' }}</span></td><td><div class="actions"><a class="btn btn-light btn-small" href="{{ route('admin.movies.edit',$movie) }}">Изменить</a><form method="POST" action="{{ route('admin.movies.destroy',$movie) }}" onsubmit="return confirm('Удалить фильм?');">@csrf @method('DELETE')<button class="btn btn-danger btn-small">Удалить</button></form></div></td></tr>@empty<tr><td colspan="6" class="empty">Фильмов пока нет.</td></tr>@endforelse
+</tbody></table></div>{{ $movies->links('pagination::simple-bootstrap-5') }}</div>@endsection
