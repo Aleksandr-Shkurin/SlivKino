@@ -1,0 +1,29 @@
+name: slivkino-test
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
+    ports:
+      - "127.0.0.1:3001:8000"
+    environment:
+      APP_NAME: SlivKino-Test
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:3001
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /var/lib/slivkino/database.sqlite
+      SESSION_DRIVER: database
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+    volumes:
+      - ../.env:/var/www/html/.env
+      - sqlite_data:/var/lib/slivkino
+      - posters_data:/var/www/html/public/images/posters
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:
+  posters_data:
